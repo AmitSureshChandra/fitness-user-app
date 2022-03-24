@@ -21,7 +21,12 @@
 
     <v-card-title>
       <v-spacer></v-spacer>
-      <v-btn color="secondary" @click="markAttendence" elevation="4">
+      <v-btn
+        color="secondary"
+        @click="markAttendence"
+        elevation="4"
+        :disabled="loading"
+      >
         {{ loggedIn === true ? "Sign Off" : "Sign In" }}
       </v-btn>
       <v-spacer></v-spacer>
@@ -88,6 +93,7 @@ export default {
       return this.loggedIn === true ? "OUT" : "IN";
     },
     markAttendence() {
+      this.loading = true;
       axios
         .post("/api/attendences", {
           action: this.getSignInText(),
